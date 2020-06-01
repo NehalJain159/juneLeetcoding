@@ -4,6 +4,7 @@ class Solution {
         
     }
     
+    //helper function
     public static TreeNode invert(TreeNode root)
     {
         if(root==null)

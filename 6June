@@ -1,0 +1,62 @@
+class Pair
+{
+    int x,y;
+    Pair(int x,int y)
+    {
+        this.x=x;
+        this.y=y;
+    }
+}
+class Sorting implements Comparator<Pair>
+{
+    public int compare(Pair a,Pair b)
+    {
+        int tmp=a.x-b.x;
+        if(tmp==0)
+        tmp=a.y-b.y;
+        
+        return tmp;
+    }
+}
+class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+        int n=people.length;
+        int ans[][]=new int[n][2];
+        for(int j=0;j<n;j++)
+        for(int i=0;i<2;i++)
+        ans[j][i]=-1;
+        
+        ArrayList<Pair> al=new ArrayList<>();
+        for(int i=0;i<n;i++)
+            al.add(new Pair(people[i][0],people[i][1]));
+        
+        Collections.sort(al,new Sorting());
+        
+        for(Pair p:al)
+        {
+            int val=p.x;
+            int h=p.y,start=0,count=h;
+            boolean a=false;
+            while(start<n)
+            {
+                if(ans[start][0]==-1 && ans[start][1]==-1)
+                {
+                     if(count==0)
+                    {
+                        a=true;
+                        ans[start][0]=val;
+                        ans[start][1]=h;
+                    }
+                    else
+                    --count;
+                } 
+                if(ans[start][0]==val)--count;
+                ++start;
+                if(a)break;
+            }
+            
+        }
+        return ans;
+        
+    }
+}

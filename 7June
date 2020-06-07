@@ -1,0 +1,22 @@
+class Solution {
+    public int change(int amount, int[] coins) {
+        if(amount==0)return 1;
+        int m=coins.length;
+        Arrays.sort(coins);
+        int a[]=new int[amount+1];
+        
+        for(int i=0;i<m;i++)
+        {
+            for(int j=coins[i];j<=amount;j++)
+            {
+                if(j==coins[i])
+                    a[j]+=1;
+                else
+                    a[j]+=a[j-coins[i]];
+            }
+            
+        }
+        return a[amount];
+        
+    }
+}

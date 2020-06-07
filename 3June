@@ -1,0 +1,32 @@
+class Solution {
+
+    public int twoCitySchedCost(int[][] costs) {
+        int n=costs.length;
+        int dp[][]=new int[n][n];
+        for(int i=0;i<n;i++)
+            for(int j=0;j<n;j++)
+                dp[i][j]=-1;
+        int ans=solve(0,costs,n/2,n/2,dp);
+        
+        return ans;
+    }
+    
+    public static int solve(int x,int costs[][],int a,int b,int dp[][])
+    {
+        if(a<0 && b<0)
+            return Integer.MAX_VALUE;
+        if(a==0 && b==0)
+            return 0;
+        if(dp[a][b]!=-1)
+            return dp[a][b];
+        
+        int first=Integer.MAX_VALUE,sec=Integer.MAX_VALUE;
+        if(a!=0)
+        first=costs[x][0]+solve(x+1,costs,a-1,b,dp);
+        if(b!=0)
+        sec=costs[x][1]+solve(x+1,costs,a,b-1,dp);
+        //stem.out.println(first+" "+sec);
+        dp[a][b]=Math.min(first,sec);
+        return dp[a][b];
+    }
+}
